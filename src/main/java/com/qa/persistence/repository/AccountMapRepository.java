@@ -9,6 +9,7 @@ import com.qa.util.JSONUtil;
 public class AccountMapRepository implements AccountRepository {
 
 	Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
+	private JSONUtil jsonUtil = new JSONUtil();
 
 	// You must provide concrete implementation for each of these methods
 	// do not change the method signature
@@ -25,8 +26,6 @@ public class AccountMapRepository implements AccountRepository {
 
 	public String createAccount(String account) {
 
-		JSONUtil jsonUtil = new JSONUtil();
-
 		Account acc = jsonUtil.getObjectForJSON(account, Account.class);
 
 		accountMap.put(acc.getAccountNumber(), acc);
@@ -41,7 +40,6 @@ public class AccountMapRepository implements AccountRepository {
 
 	public String updateAccount(int accountNumber, String account) {
 
-		JSONUtil jsonUtil = new JSONUtil();
 		Account acc = jsonUtil.getObjectForJSON(account, Account.class);
 
 		accountMap.replace(accountNumber, acc);
