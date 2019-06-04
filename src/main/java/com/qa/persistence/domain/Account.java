@@ -16,10 +16,6 @@ public class Account {
 		counter++;
 	}
 
-	public Account() {
-		super();
-	}
-
 	public int getAccountNumber() {
 		return accountNumber;
 	}
