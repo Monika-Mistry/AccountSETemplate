@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.qa.persistence.domain.Account;
+import com.qa.util.JSONUtil;
 
 public class AccountMapRepository implements AccountRepository {
 
@@ -23,8 +24,14 @@ public class AccountMapRepository implements AccountRepository {
 	}
 
 	public String createAccount(String account) {
-		// TODO Auto-generated method stub
-		return null;
+
+		JSONUtil jsonUtil = new JSONUtil();
+
+		Account acc = jsonUtil.getObjectForJSON(account, Account.class);
+
+		accountMap.put(acc.getAccountNumber(), acc);
+
+		return "Account added";
 	}
 
 	public String deleteAccount(int accountNumber) {
@@ -33,8 +40,13 @@ public class AccountMapRepository implements AccountRepository {
 	}
 
 	public String updateAccount(int accountNumber, String account) {
-		// TODO Auto-generated method stub
-		return null;
+
+		JSONUtil jsonUtil = new JSONUtil();
+		Account acc = jsonUtil.getObjectForJSON(account, Account.class);
+
+		accountMap.replace(accountNumber, acc);
+
+		return "Account updated";
 	}
 
 }
