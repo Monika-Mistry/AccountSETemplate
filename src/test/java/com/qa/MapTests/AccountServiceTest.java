@@ -13,70 +13,73 @@ import com.qa.util.JSONUtil;
 public class AccountServiceTest {
 
 	private JSONUtil jsonUtil;
-	private AccountMapRepository amp;
+	private AccountMapRepository amr;
+	private Account acc1;
+	private Account acc2;
 
 	@Before
 	public void setup() {
 		jsonUtil = new JSONUtil();
-		amp = new AccountMapRepository();
-
+		amr = new AccountMapRepository();
+		acc1 = new Account(1234, "John", "Smith");
+		acc2 = new Account(12345, "Jane", "Doe");
 	}
 
 	@Test
 	public void addAccountTest() {
 
-		Account acc = new Account(1234, "John", "Smith");
-		String accString = jsonUtil.getJSONForObject(acc);
+		String accString = jsonUtil.getJSONForObject(acc1);
+		amr.createAccount(accString);
 
-		assertEquals("Account not created", "Account added", amp.createAccount(accString));
+		assertEquals(1, amr.getAccountMap().size());
+		assertEquals("John", amr.getAccountMap().get(1234).getFirstName());
 
 	}
 
 	@Test
 	public void add2AccountsTest() {
-		Account acc1 = new Account(1234, "John", "Smith");
-		Account acc2 = new Account(12345, "Jane", "Doe");
 
 		String acc1String = jsonUtil.getJSONForObject(acc1);
 		String acc2String = jsonUtil.getJSONForObject(acc2);
 
-		assertEquals("Account not created", "Account added", amp.createAccount(acc1String));
-		assertEquals("Account not created", "Account added", amp.createAccount(acc2String));
+		amr.createAccount(acc1String);
+		amr.createAccount(acc2String);
+
+		assertEquals(2, amr.getAccountMap().size());
+		assertEquals("John", amr.getAccountMap().get(1234).getFirstName());
+		assertEquals("Jane", amr.getAccountMap().get(12345).getFirstName());
 	}
 
 	@Test
 	public void removeAccountTest() {
-		Account acc = new Account(1234, "John", "Smith");
-		String accString = jsonUtil.getJSONForObject(acc);
-		amp.createAccount(accString);
 
-		int accountNumber = acc.getAccountNumber();
+		amr.getAccountMap().put(1234, acc1);
 
-		assertEquals("Account not removed", "Account deleted", amp.deleteAccount(accountNumber));
+		assertEquals(0, amr.getAccountMap().size());
 	}
 
 	@Test
 	public void remove2AccountsTest() {
-		Account acc1 = new Account(1234, "John", "Smith");
-		Account acc2 = new Account(12345, "Jane", "Doe");
 
-		String acc1String = jsonUtil.getJSONForObject(acc1);
-		String acc2String = jsonUtil.getJSONForObject(acc2);
+		amr.getAccountMap().put(1234, acc1);
+		amr.getAccountMap().put(12345, acc2);
+		amr.deleteAccount(1234);
+		amr.deleteAccount(12345);
 
-		amp.createAccount(acc1String);
-		amp.createAccount(acc2String);
-
-		int accNo1 = acc1.getAccountNumber();
-		int accNo2 = acc2.getAccountNumber();
-
-		assertEquals("Account not removed", "Account deleted", amp.deleteAccount(accNo1));
-		assertEquals("Account not removed", "Account deleted", amp.deleteAccount(accNo2));
-
+		assertEquals(0, amr.getAccountMap().size());
 	}
 
 	@Test
 	public void remove2AccountTestAnd1ThatDoesntExist() {
-		fail("TODO");
+		amr.getAccountMap().put(1234, acc1);
+		amr.getAccountMap().put(12345, acc2);
+
+		amr.deleteAccount(1234);
+		amr.deleteAccount(1);
+
+		assertEquals(1, amr.getAccountMap().size());
+		assertEquals("Jane", amr.getAccountMap().get(12345).getFirstName());
+
 	}
 
 	@Test
