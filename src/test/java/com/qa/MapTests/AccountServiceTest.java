@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.qa.persistence.domain.Account;
@@ -102,22 +103,25 @@ public class AccountServiceTest {
 	public void returnAccountsWhenMapFilled() {
 		amr.getAccountMap().put(1234, acc1);
 		assertEquals(1, amr.getAccountMap().size());
-		assertEquals("{1234,{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}}",
+		assertEquals("{\"1234\":{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}}",
 				amr.getAllAccounts());
 	}
 
 	@Test
 	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
-		// For a later piece of functionality
-		fail("TODO");
+		amr.getAccountMap().put(1234, acc1);
+
+		assertEquals(1, amr.findAccountsWithFirstName("John"));
 	}
 
+	@Ignore
 	@Test
 	public void getCountForFirstNamesInAccountWhenOne() {
 		// For a later piece of functionality
 		fail("TODO");
 	}
 
+	@Ignore
 	@Test
 	public void getCountForFirstNamesInAccountWhenTwo() {
 		// For a later piece of functionality
