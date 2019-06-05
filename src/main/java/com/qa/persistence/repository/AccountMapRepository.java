@@ -51,4 +51,9 @@ public class AccountMapRepository implements AccountRepository {
 		return "Account updated";
 	}
 
+	public int findAccountsWithFirstName(String name) {
+		return (int) accountMap.values().stream().filter(a -> a.getFirstName().equals(name)).count();
+
+	}
+
 }

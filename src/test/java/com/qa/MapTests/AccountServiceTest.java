@@ -1,7 +1,6 @@
 package com.qa.MapTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -102,26 +101,29 @@ public class AccountServiceTest {
 	public void returnAccountsWhenMapFilled() {
 		amr.getAccountMap().put(1234, acc1);
 		assertEquals(1, amr.getAccountMap().size());
-		assertEquals("{1234,{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}}",
+		assertEquals("{\"1234\":{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}}",
 				amr.getAllAccounts());
 	}
 
 	@Test
 	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
-		// For a later piece of functionality
-		fail("TODO");
+		assertEquals(0, amr.findAccountsWithFirstName("John"));
 	}
 
 	@Test
 	public void getCountForFirstNamesInAccountWhenOne() {
-		// For a later piece of functionality
-		fail("TODO");
+		amr.getAccountMap().put(1234, acc1);
+
+		assertEquals(1, amr.findAccountsWithFirstName("John"));
 	}
 
 	@Test
 	public void getCountForFirstNamesInAccountWhenTwo() {
-		// For a later piece of functionality
-		fail("TODO");
+		Account acc3 = new Account(3, 12, "John", "Doe");
+		amr.getAccountMap().put(1234, acc1);
+		amr.getAccountMap().put(12, acc3);
+
+		assertEquals(2, amr.findAccountsWithFirstName("John"));
 	}
 
 }
