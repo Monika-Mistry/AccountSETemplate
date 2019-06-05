@@ -16,6 +16,8 @@ public class AccountServiceTest {
 	private AccountMapRepository amr;
 	private Account acc1;
 	private Account acc2;
+	private String acc1JSON = "{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}";
+	private String acc2JSON = "{\"id\":2,\"accountNumber\":12345,\"firstName\":\"Jane\",\"lastName\":\"Doe\"}";
 
 	@Before
 	public void setup() {
@@ -84,8 +86,7 @@ public class AccountServiceTest {
 
 	@Test
 	public void jsonStringToAccountConversionTest() {
-		// testing JSONUtil
-		fail("TODO");
+		assertEquals(acc1, jsonUtil.getObjectForJSON(acc1JSON, Account.class));
 	}
 
 	@Test
