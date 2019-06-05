@@ -23,15 +23,14 @@ public class AccountServiceTest {
 	public void setup() {
 		jsonUtil = new JSONUtil();
 		amr = new AccountMapRepository();
-		acc1 = new Account(1234, "John", "Smith");
-		acc2 = new Account(12345, "Jane", "Doe");
+		acc1 = new Account(1, 1234, "John", "Smith");
+		acc2 = new Account(2, 12345, "Jane", "Doe");
 	}
 
 	@Test
 	public void addAccountTest() {
 
-		String accString = jsonUtil.getJSONForObject(acc1);
-		amr.createAccount(accString);
+		amr.createAccount(acc1JSON);
 
 		assertEquals(1, amr.getAccountMap().size());
 		assertEquals("John", amr.getAccountMap().get(1234).getFirstName());
@@ -41,11 +40,8 @@ public class AccountServiceTest {
 	@Test
 	public void add2AccountsTest() {
 
-		String acc1String = jsonUtil.getJSONForObject(acc1);
-		String acc2String = jsonUtil.getJSONForObject(acc2);
-
-		amr.createAccount(acc1String);
-		amr.createAccount(acc2String);
+		amr.createAccount(acc1JSON);
+		amr.createAccount(acc2JSON);
 
 		assertEquals(2, amr.getAccountMap().size());
 		assertEquals("John", amr.getAccountMap().get(1234).getFirstName());
@@ -56,6 +52,8 @@ public class AccountServiceTest {
 	public void removeAccountTest() {
 
 		amr.getAccountMap().put(1234, acc1);
+
+		amr.deleteAccount(1234);
 
 		assertEquals(0, amr.getAccountMap().size());
 	}
@@ -86,13 +84,13 @@ public class AccountServiceTest {
 
 	@Test
 	public void jsonStringToAccountConversionTest() {
-		assertEquals(acc1, jsonUtil.getObjectForJSON(acc1JSON, Account.class));
+		Account acc = jsonUtil.getObjectForJSON(acc1JSON, Account.class);
+		assertEquals(1234, acc.getAccountNumber());
 	}
 
 	@Test
 	public void accountConversionToJSONTest() {
-		// testing JSONUtil
-		fail("TODO");
+		assertEquals(acc1JSON, jsonUtil.getJSONForObject(acc1));
 	}
 
 	@Test

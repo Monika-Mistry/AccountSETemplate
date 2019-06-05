@@ -6,14 +6,17 @@ public class Account {
 	private int accountNumber;
 	private String firstName;
 	private String lastName;
-	private static int counter = 1;
 
-	public Account(int accountNumber, String firstName, String lastName) {
-		this.setId(counter);
+	public Account(int id, int accountNumber, String firstName, String lastName) {
+		this.id = id;
 		this.accountNumber = accountNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		counter++;
+
+	}
+
+	public Account() {
+		super();
 	}
 
 	public int getAccountNumber() {
