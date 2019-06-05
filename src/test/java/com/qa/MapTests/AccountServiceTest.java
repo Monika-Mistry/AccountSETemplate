@@ -94,6 +94,19 @@ public class AccountServiceTest {
 	}
 
 	@Test
+	public void returnAccountsWhenMapEmpty() {
+		assertEquals("{}", amr.getAllAccounts());
+	}
+
+	@Test
+	public void returnAccountsWhenMapFilled() {
+		amr.getAccountMap().put(1234, acc1);
+		assertEquals(1, amr.getAccountMap().size());
+		assertEquals("{1234,{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}}",
+				amr.getAllAccounts());
+	}
+
+	@Test
 	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
 		// For a later piece of functionality
 		fail("TODO");
