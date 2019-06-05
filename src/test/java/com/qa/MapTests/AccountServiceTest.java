@@ -109,16 +109,14 @@ public class AccountServiceTest {
 
 	@Test
 	public void getCountForFirstNamesInAccountWhenZeroOccurances() {
+
+	}
+
+	@Test
+	public void getCountForFirstNamesInAccountWhenOne() {
 		amr.getAccountMap().put(1234, acc1);
 
 		assertEquals(1, amr.findAccountsWithFirstName("John"));
-	}
-
-	@Ignore
-	@Test
-	public void getCountForFirstNamesInAccountWhenOne() {
-		// For a later piece of functionality
-		fail("TODO");
 	}
 
 	@Ignore
