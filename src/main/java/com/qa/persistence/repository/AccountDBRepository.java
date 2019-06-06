@@ -55,7 +55,16 @@ public class AccountDBRepository implements AccountRepository {
 	@Transactional(TxType.REQUIRED)
 	public String updateAccount(int accountNumber, String account) {
 
-		return null;
+		Account oldAcc = em.find(Account.class, accountNumber);
+		Account newAcc = json.getObjectForJSON(account, Account.class);
+
+		em.getTransaction().begin();
+		em.detach(oldAcc);
+		oldAcc = newAcc;
+		em.merge(oldAcc);
+		em.getTransaction().commit();
+
+		return "{\"message\": \"Account details updated\"}";
 	}
 
 }
