@@ -18,7 +18,6 @@ import com.qa.util.JSONUtil;
 public class AccountDBRepository implements AccountRepository {
 
 	@PersistenceContext(unitName = "primary")
-	@Inject
 	private EntityManager em;
 
 	@Inject
