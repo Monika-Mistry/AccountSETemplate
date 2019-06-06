@@ -33,7 +33,9 @@ public class AccountDBRepository implements AccountRepository {
 
 		Account acc = json.getObjectForJSON(account, Account.class);
 
+		em.getTransaction().begin();
 		em.persist(acc);
+		em.getTransaction().commit();
 
 		return "{\"message\": \"New Account Created\"}";
 	}
@@ -41,6 +43,9 @@ public class AccountDBRepository implements AccountRepository {
 	@Transactional(TxType.REQUIRED)
 	public String deleteAccount(int accountNumber) {
 
+		// Account acc = em.find(Account.class, accountNumber);
+		//
+		// query.
 		return null;
 	}
 
