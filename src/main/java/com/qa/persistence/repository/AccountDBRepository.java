@@ -43,10 +43,13 @@ public class AccountDBRepository implements AccountRepository {
 	@Transactional(TxType.REQUIRED)
 	public String deleteAccount(int accountNumber) {
 
-		// Account acc = em.find(Account.class, accountNumber);
-		//
-		// query.
-		return null;
+		Account acc = em.find(Account.class, accountNumber);
+
+		em.getTransaction().begin();
+		em.remove(acc);
+		em.getTransaction().commit();
+
+		return "{\"message\": \"Account deleted\"}";
 	}
 
 	@Transactional(TxType.REQUIRED)
