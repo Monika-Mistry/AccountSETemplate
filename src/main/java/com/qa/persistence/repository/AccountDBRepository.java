@@ -31,7 +31,11 @@ public class AccountDBRepository implements AccountRepository {
 	@Transactional(TxType.REQUIRED)
 	public String createAccount(String account) {
 
-		return null;
+		Account acc = json.getObjectForJSON(account, Account.class);
+
+		em.persist(acc);
+
+		return "{\"message\": \"New Account Created\"}";
 	}
 
 	@Transactional(TxType.REQUIRED)
