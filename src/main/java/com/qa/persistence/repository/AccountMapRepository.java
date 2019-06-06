@@ -56,4 +56,9 @@ public class AccountMapRepository implements AccountRepository {
 
 	}
 
+	public String getAnAccount(int accountNumber) {
+		Account acc = accountMap.values().stream().filter(a -> a.getAccountNumber() == accountNumber).findFirst().get();
+		return jsonUtil.getJSONForObject(acc);
+	}
+
 }
