@@ -2,25 +2,23 @@ package com.qa.business.service;
 
 import javax.inject.Inject;
 
-import com.qa.persistence.domain.Account;
 import com.qa.persistence.repository.AccountRepository;
-import com.qa.util.JSONUtil;
 
 public class AccountServiceImpl implements AccountService {
 
 	@Inject
 	private AccountRepository accountRepo;
 
-	@Inject
-	private JSONUtil json;
+	// @Inject
+	// private JSONUtil json;
 
 	@Override
 	public String addAccount(String account) {
-		if (json.getObjectForJSON(account, Account.class).getAccountNumber() == 9999) {
-			return "{\"message\": \"This account is blocked\"}";
-		} else {
-			return accountRepo.createAccount(account);
-		}
+		// if (account.) {
+		// return "{\"message\": \"This account is blocked\"}";
+		// } else {
+		return accountRepo.createAccount(account);
+		// }
 	}
 
 	@Override

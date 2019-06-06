@@ -13,8 +13,8 @@ import javax.transaction.Transactional.TxType;
 import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
 
-@Transactional(TxType.SUPPORTS)
 @Default
+@Transactional(TxType.SUPPORTS)
 public class AccountDBRepository implements AccountRepository {
 
 	@PersistenceContext(unitName = "primary")
