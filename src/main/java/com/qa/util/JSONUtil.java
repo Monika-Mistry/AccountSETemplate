@@ -1,13 +1,20 @@
 package com.qa.util;
 
+import javax.inject.Inject;
+
 import com.google.gson.Gson;
 
 public class JSONUtil {
 
+	@Inject
 	private Gson gson;
 
+	// public JSONUtil() {
+	// this.gson = new Gson();
+	// }
+
 	public JSONUtil() {
-		this.gson = new Gson();
+		super();
 	}
 
 	public String getJSONForObject(Object obj) {

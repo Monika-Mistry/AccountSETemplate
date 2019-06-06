@@ -4,15 +4,24 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.qa.persistence.domain.Account;
 import com.qa.persistence.repository.AccountMapRepository;
 import com.qa.util.JSONUtil;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 
-	private JSONUtil jsonUtil;
+	@InjectMocks
 	private AccountMapRepository amr;
+
+	@Mock
+	private JSONUtil jsonUtil;
 	private Account acc1;
 	private Account acc2;
 	private String acc1JSON = "{\"id\":1,\"accountNumber\":1234,\"firstName\":\"John\",\"lastName\":\"Smith\"}";
@@ -30,6 +39,7 @@ public class AccountServiceTest {
 	public void addAccountTest() {
 
 		amr.createAccount(acc1JSON);
+		Mockito.when(jsonUtil.getObjectForJSON(acc1JSON, Account.class)).thenReturn(acc1);
 
 		assertEquals(1, amr.getAccountMap().size());
 		assertEquals("John", amr.getAccountMap().get(1234).getFirstName());
