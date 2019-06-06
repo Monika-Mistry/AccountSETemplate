@@ -67,7 +67,7 @@ public class AccountDBRepository implements AccountRepository {
 		return "{\"message\": \"Account details updated\"}";
 	}
 
-	public String findAnAccount(int accountNumber) {
+	public String getAnAccount(int accountNumber) {
 		return json.getJSONForObject(em.find(Account.class, accountNumber));
 	}
 
