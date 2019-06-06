@@ -2,6 +2,8 @@ package com.qa.persistence.repository;
 
 import java.util.Collection;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -12,11 +14,14 @@ import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
 
 @Transactional(TxType.SUPPORTS)
+@Default
 public class AccountDBRepository implements AccountRepository {
 
 	@PersistenceContext(unitName = "primary")
+	@Inject
 	private EntityManager em;
 
+	@Inject
 	private JSONUtil json;
 
 	public String getAllAccounts() {
